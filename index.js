@@ -1,7 +1,24 @@
 var http = require('http');
 
-//create a server object:
 http.createServer(function (req, res) {
-  res.write('A Monk in Cloud'); //write a response to the client
-  res.end(); //end the response
-}).listen(80); //the server object listens on port 80
+  // Set the response HTTP header with HTTP status and Content type
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  
+  // Route the request based on the URL
+  switch(req.url) {
+    case '/':
+      res.end('Welcome to A Monk in Cloud');
+      break;
+    case '/about':
+      res.end('About A Monk in Cloud');
+      break;
+    case '/contact':
+      res.end('Contact A Monk in Cloud');
+      break;
+    default:
+      res.writeHead(404);
+      res.end('404 Not Found');
+  }
+}).listen(80);
+
+console.log('Server running on port 80');
